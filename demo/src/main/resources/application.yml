@@ -1,0 +1,23 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: demo
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/haruharu?serverTimezone=Asia/Shanghai
+    username: root
+    password: 12345678
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  page-size-zero: true
+  params: count=contSql
+
+
+mybatis-plus:
+  mapper-locations: classpath:com/ryota/demo/mapper/xml/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
