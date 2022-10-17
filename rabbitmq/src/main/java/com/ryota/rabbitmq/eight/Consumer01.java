@@ -4,6 +4,7 @@ import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DeliverCallback;
 import com.ryota.rabbitmq.utils.RabbitMqUtils;
+import sun.plugin2.main.client.MozillaServiceDelegate;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,7 +48,7 @@ public class Consumer01 {
         arguments.put("x-dead-letter-routing-key", "lisi");
 
         //设置正常队列的长度限制
-        arguments.put("x-max-length",6);
+//        arguments.put("x-max-length",6);
         channel.queueDeclare(NORMAL_QUEUE, false, false, false, arguments);
 
         //声明死信队列
@@ -59,9 +60,20 @@ public class Consumer01 {
         channel.queueBind(DEAD_QUEUE, DEAD_EXCHANGE, "lisi");
         System.out.println("等待接收消息....");
         DeliverCallback deliverCallback = (consumerTag, message) -> {
-            System.out.println("consumer01接受的消息是:" + new String(message.getBody(), "UTF-8"));
+            String msg = new String(message.getBody(), "UTF-8");
+            if (msg.equals("5info")) {
+                System.out.println("consumer01接受的消息是:" + msg + "此消息是被拒绝的");
+                /**
+                 * false 拒绝之后不放回队列
+                 */
+                channel.basicReject(message.getEnvelope().getDeliveryTag(),false);
+            }else {
+                System.out.println("consumer01接受的消息是:" + msg);
+                channel.basicAck(message.getEnvelope().getDeliveryTag(),false);
+            }
         };
-        channel.basicConsume(NORMAL_QUEUE, true, deliverCallback, consumerTag -> {
+        //开启手动应答
+        channel.basicConsume(NORMAL_QUEUE, false, deliverCallback, consumerTag -> {
         });
     }
 }

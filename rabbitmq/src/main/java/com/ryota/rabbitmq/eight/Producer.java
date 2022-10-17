@@ -26,7 +26,7 @@ public class Producer {
         AMQP.BasicProperties properties = new AMQP.BasicProperties()
                 .builder().expiration("10000").build();
          */
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             String message = i + "info";
             channel.basicPublish(NORMAL_EXCHANGE,"zhangsan",null,message.getBytes());
         }
