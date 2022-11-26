@@ -10,6 +10,9 @@
     <modules>
         <module>demo</module>
         <module>rabbitmq</module>
+        <module>common</module>
+        <module>springboot-rabbitmq</module>
+        <module>design</module>
     </modules>
 
     <packaging>pom</packaging>

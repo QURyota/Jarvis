@@ -56,7 +56,7 @@ public class CodeGenerator {
         // 4、包配置
         PackageConfig pc = new PackageConfig();
         // 此处要注意：parent为包的名字，在这个包下，创建对应的controller...
-        pc.setParent("com.ryota.normal");
+        pc.setParent("com.ryota.demo");
         pc.setController("controller");
         pc.setEntity("entity");
         pc.setService("service");
@@ -66,7 +66,7 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
         // 数据库中表的名字，表示要对哪些表进行自动生成controller service、mapper...,逗号隔开
-        strategy.setInclude("office_house_apply_information","office_house_apply_master");
+        strategy.setInclude("report_basic_config_info");
         strategy.setNaming(NamingStrategy.underline_to_camel);// 数据库表映射到实体的命名策略,驼峰命名法
         strategy.setColumnNaming(NamingStrategy.underline_to_camel); //数据库表字段映射到实体的命名策略
         strategy.setEntityLombokModel(true); // lombok
